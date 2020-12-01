@@ -34,14 +34,13 @@
 
   <!-- TEMPLATES -->
   <template id="todo-item">
-    <li class="todo-item list-group-item d-flex align-items-center">
-      <div class="text-wrapper">
-        <label>
-          <input class="todo-checkbox item-chechbox custom-checkbox" type="checkbox">
-        </label>
-        <span class="todo-text">Binnima</span>
+    <li class="todo-item list-group-item d-flex align-items-center justify-content-sm-between">
+      <div class="form-check d-flex align-items-center">
+        <input type="checkbox" class="todo-checkbox form-check-input" id="">
+        <label class="todo-label form-check-label" for=""></label>
+        <span style="line-height: 2;" class="todo-text mr-5 mr-md-4">Binnima</span>
       </div>
-      <button class="btn ml-auto">X</button>
+      <button type="button" class="todo-delete-btn btn btn-outline-danger btn-sm js-todo-delete-btn">&times;</button>
     </li>
   </template>
 

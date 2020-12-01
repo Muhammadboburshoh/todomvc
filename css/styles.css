@@ -24,6 +24,20 @@ img {
   height: auto;
 }
 
-.item-chechbox:checked {
-  color: #666;zz
+.todo-checkbox:checked ~ .todo-text{
+  color: #999;
+  text-decoration: line-through;
+}
+
+.todo-delete-btn {
+  display: none;
+}
+
+.todo-item:hover .todo-text {
+  margin-right: 0 !important;
+}
+
+.todo-item:hover .todo-delete-btn {
+  display: block;
+  margin-left: 0;
 }

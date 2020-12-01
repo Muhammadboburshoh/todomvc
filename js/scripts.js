@@ -5,6 +5,8 @@ var elTodoList = $_('.todo-list', elTodoForm);
 var elTodoTemplate = $_('#todo-item').content;
 var todoCheckbox = $_('.todo-checkbox', elTodoTemplate);
 
+var itemDeleteButton = $_(".todo-delete-btn")
+
 var elClearBtn = $_('.clear-btn');
 var elShowAllBtn = $_('.show-all');
 var elShowActiveBtn = $_('.show-active');
@@ -15,6 +17,20 @@ var elShovCompletedBtn = $_('.show-completed');
 var todosArray = JSON.parse(localStorage.getItem('todos')) || [];
 
 
+var addTodo = function(enteredValue) {
+
+  todosArray.push({
+    title: enteredValue,
+    id: 1,
+    complated: false
+  })
+
+}
+
+var updateLocalTodolist = function() {
+  localStorage.setItem('todos', JSON.stringify(todosArray));
+}
+
 var createNewTodo = function () {
   var newTodoFragment = document.createDocumentFragment();
 
@@ -23,7 +39,9 @@ var createNewTodo = function () {
 
     $_('.todo-text', newTodo).textContent = todo.title;
     $_('.todo-checkbox', newTodo).dataset.id = todo.id;
-    $_('.todo-text', newTodo).dataset.id = todo.id;
+    $_('.todo-checkbox', newTodo).id = `todo${todo.id}`;
+    $_('.todo-label', newTodo).id = `todo${todo.id}`;
+    $_(".todo-delete-btn", newTodo).dataset.id = todo.id;
     newTodoFragment.appendChild(newTodo);
   });
 
@@ -31,35 +49,23 @@ var createNewTodo = function () {
 }
 createNewTodo();
 
-todoCheckbox.checked
-
-
 
 elTodoForm.addEventListener('submit', evt => {
   evt.preventDefault();
   elTodoList.innerHTML = '';  
 
   var enteredValue = elTodoInput.value.trim();
-
-  var searchWord = new RegExp(enteredValue, "gi")
-  var isExist;
-  todosArray.forEach(function(todo) {
-    isExist = todo.title.match(searchWord);
-  })
-
-  var i = todosArray.length;
-  if (!isExist) {
-    todosArray.push({
-      title: enteredValue,
-      id: i+1,
-      isUrgent: false,
-      complated: false
-    })
-    localStorage.setItem('todos', JSON.stringify(todosArray));
+  if(!enteredValue) {
+    alert("Iltimos, vazifa matnini kiriting");
+    return;
   }
+
+  addTodo(enteredValue);
+  createNewTodo();
   console.log(todosArray);
 
-  createNewTodo();
+  updateLocalTodolist();
+
   elTodoInput.value = '';
 });
 
